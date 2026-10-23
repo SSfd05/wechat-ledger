@@ -1,0 +1,54 @@
+<view class="page">
+  <view class="month-card">
+    <view class="month-row">
+      <view class="month-arrow" bindtap="prevMonth" hover-class="arrow-hover">‹</view>
+      <text class="month-text">{{monthText}}</text>
+      <view class="month-arrow" bindtap="nextMonth" hover-class="arrow-hover">›</view>
+    </view>
+
+    <view class="month-total"><text class="cny">¥</text>{{totalText}}</view>
+    <view class="month-meta">支出 ¥{{totalText}} · 收入 ¥{{incomeText}} · 结余 ¥{{balanceText}}</view>
+    <view class="month-meta">共 {{count}} 笔</view>
+
+    <view class="month-add" bindtap="openAdd" hover-class="add-hover">＋ 记一笔</view>
+  </view>
+
+  <scroll-view class="filters" scroll-x="{{true}}">
+    <view class="filter {{item.id === filterId ? 'on' : ''}}"
+          wx:for="{{filters}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="setFilter">
+      {{item.name}} {{item.count}}
+    </view>
+  </scroll-view>
+
+  <view class="groups" wx:if="{{hasData}}">
+    <view class="group" wx:for="{{groups}}" wx:key="key">
+      <view class="group-head">
+        <text class="group-label">{{item.label}}</text>
+        <text class="group-total">{{item.totalLabel}}</text>
+      </view>
+
+      <view class="card group-card">
+        <view class="rec" wx:for="{{item.items}}" wx:for-item="rec" wx:key="id"
+              data-id="{{rec.id}}"
+              bindtap="recordMenu"
+              hover-class="rec-hover">
+          <view class="rec-icon" style="background: {{rec.soft}}">{{rec.icon}}</view>
+          <view class="rec-main">
+            <text class="rec-note">{{rec.note}}</text>
+            <text class="rec-sub">{{rec.categoryName}} · {{rec.timeText}}</text>
+          </view>
+          <text class="rec-amount {{rec.amountClass}}">{{rec.signedAmountText}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="hint">轻点记录可编辑或删除</view>
+  </view>
+
+  <view class="card empty" wx:else>
+    <text class="empty-icon">🗓️</text>
+    <text class="empty-title">这个月还没有记录</text>
+    <text class="empty-sub">从记下第一笔开始，金额和分类都会自动汇总</text>
+    <button class="empty-btn" bindtap="openAdd">记一笔</button>
+  </view>
+</view>

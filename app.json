@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/add/add",
+    "pages/list/list",
+    "pages/import/import",
+    "pages/settings/settings"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#F7F4EF",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "拾光账本本",
+    "backgroundColor": "#F7F4EF",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#9A958C",
+    "selectedColor": "#E8663D",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/tab/home.png",
+        "selectedIconPath": "assets/tab/home-active.png"
+      },
+      {
+        "pagePath": "pages/list/list",
+        "text": "明细",
+        "iconPath": "assets/tab/list.png",
+        "selectedIconPath": "assets/tab/list-active.png"
+      },
+      {
+        "pagePath": "pages/settings/settings",
+        "text": "我的",
+        "iconPath": "assets/tab/user.png",
+        "selectedIconPath": "assets/tab/user-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "permission": {
+    "scope.record": {
+      "desc": "用于语音记账：把你说的话转成文字，自动识别金额和分类"
+    }
+  },
+  "sitemapLocation": "sitemap.json"
+}

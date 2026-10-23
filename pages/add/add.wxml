@@ -1,0 +1,73 @@
+<view class="page">
+  <view class="type-tabs">
+    <view class="type-tab {{recordType === 'expense' ? 'on' : ''}}" data-type="expense" bindtap="setType">支出</view>
+    <view class="type-tab {{recordType === 'income' ? 'on' : ''}}" data-type="income" bindtap="setType">收入</view>
+  </view>
+
+  <view class="card amount-card" wx:if="{{!isMulti}}">
+    <text class="label">金额</text>
+    <view class="amount-row">
+      <text class="cny">¥</text>
+      <input class="amount-input" type="digit" value="{{amount}}" placeholder="0.00"
+             placeholder-class="ph" maxlength="12" cursor-spacing="120"
+             bindinput="onAmountInput" />
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="label">备注</text>
+    <view class="note-row">
+      <input class="note-input" value="{{note}}" placeholder="例如：午饭27.5，奶茶7.5"
+             placeholder-class="ph" maxlength="120" confirm-type="done"
+             bindinput="onNoteInput" bindblur="onNoteBlur" />
+      <view class="clip-btn" bindtap="readClipboard" hover-class="soft-hover">剪贴板</view>
+    </view>
+    <view class="tip" wx:if="{{autoTip}}">{{autoTip}}</view>
+    <view class="tip muted" wx:else>输入「午饭27.5，奶茶7.5」会自动拆成两笔，一次记入</view>
+  </view>
+
+  <view class="card multi-card" wx:if="{{isMulti}}">
+    <view class="multi-head">
+      <text class="multi-title">识别到 {{multiItems.length}} 笔</text>
+      <text class="multi-total">合计 ¥{{multiTotalText}}</text>
+    </view>
+    <view class="multi-item" wx:for="{{multiItems}}" wx:key="key">
+      <view class="multi-icon" style="background: {{item.soft}}">{{item.icon}}</view>
+      <view class="multi-main">
+        <text class="multi-note">{{item.note}}</text>
+        <text class="multi-sub">{{item.categoryName}}</text>
+      </view>
+      <text class="multi-amount">¥{{item.amountText}}</text>
+    </view>
+    <view class="multi-tip">金额和分类已按每笔自动识别，点下方按钮一次记入</view>
+    <view class="multi-link" bindtap="goImport">批量导入整段账单 ›</view>
+  </view>
+
+  <view class="card" wx:if="{{!isMulti}}">
+    <view class="label-row">
+      <text class="label label-inline">分类</text>
+      <text class="link" bindtap="goImport">批量导入 ›</text>
+    </view>
+    <view class="cat-grid">
+      <view class="cat-cell {{item.id === categoryId ? 'on' : ''}}"
+            wx:for="{{categoryList}}" wx:key="id"
+            data-id="{{item.id}}" bindtap="pickCategory"
+            style="{{item.id === categoryId ? 'background:' + item.soft + ';border-color:' + item.color : ''}}">
+        <text class="cat-icon">{{item.icon}}</text>
+        <text class="cat-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card date-card">
+    <text class="label label-inline">日期</text>
+    <picker mode="date" value="{{date}}" bindchange="onDateChange">
+      <view class="date-value">{{dateLabel}}<text class="chev">›</text></view>
+    </picker>
+  </view>
+
+  <view class="save-wrap">
+    <button wx:if="{{isMulti}}" class="btn-primary" hover-class="btn-hover" bindtap="saveMulti">一次记入 {{multiItems.length}} 笔 · ¥{{multiTotalText}}</button>
+    <button wx:else class="btn-primary" hover-class="btn-hover" bindtap="save">{{editingId ? '保存修改' : '记这一笔'}}</button>
+  </view>
+</view>

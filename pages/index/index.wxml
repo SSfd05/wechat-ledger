@@ -1,0 +1,134 @@
+<view class="page">
+  <view class="header">
+    <view class="hello">
+      <text class="greet">{{greeting}}</text>
+      <text class="date">{{dateText}}</text>
+    </view>
+    <view class="settings-btn" bindtap="goSettings" hover-class="soft-hover">⚙</view>
+  </view>
+
+  <view class="hero">
+    <view class="hero-top">
+      <text class="hero-label">今日支出</text>
+      <text class="hero-month" bindtap="goList">本月 ¥{{monthTotalText}} ›</text>
+    </view>
+    <view class="hero-amount"><text class="cny">¥</text>{{todayTotalText}}</view>
+    <view class="hero-budget">
+      <text>{{budgetText}}</text>
+      <text class="hero-link" wx:if="{{showBudgetLink}}" bindtap="goSettings">去设置 ›</text>
+    </view>
+    <view class="hero-income">今日收入 ¥{{todayIncomeText}} · 本月结余 ¥{{balanceText}}</view>
+    <view class="hero-track" wx:if="{{budgetPct >= 0}}">
+      <view class="hero-fill {{overBudget ? 'over' : ''}}" style="width: {{budgetPct}}%"></view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">
+      <text class="section-title">今日分类</text>
+      <text class="section-link" bindtap="goList">全部明细 ›</text>
+    </view>
+
+    <view class="card cats-card" wx:if="{{hasToday}}">
+      <view class="cat-row" wx:for="{{todayCats}}" wx:key="id">
+        <view class="cat-badge" style="background: {{item.soft}}">{{item.icon}}</view>
+        <view class="cat-main">
+          <view class="cat-line">
+            <text class="cat-name">{{item.name}}</text>
+            <text class="cat-amount">¥{{item.amountText}}</text>
+          </view>
+          <view class="cat-track">
+            <view class="cat-fill" style="width: {{item.bar}}%; background: {{item.color}}"></view>
+          </view>
+        </view>
+        <text class="cat-pct">{{item.pct}}%</text>
+      </view>
+    </view>
+
+    <view class="card empty" wx:else>
+      <text class="empty-icon">🧾</text>
+      <text class="empty-title">今天还没有记账</text>
+      <text class="empty-sub">记下第一笔，自动帮你归类和汇总</text>
+      <button class="empty-btn" bindtap="goAdd">记一笔</button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">
+      <text class="section-title">最近记录</text>
+      <text class="section-link" wx:if="{{recent.length}}" bindtap="goAdd">＋ 记一笔</text>
+    </view>
+
+    <view class="card recent-card" wx:if="{{recent.length}}">
+      <view class="rec" wx:for="{{recent}}" wx:key="id"
+            data-id="{{item.id}}"
+            bindtap="recordMenu"
+            hover-class="rec-hover">
+        <view class="rec-icon" style="background: {{item.soft}}">{{item.icon}}</view>
+        <view class="rec-main">
+          <text class="rec-note">{{item.note}}</text>
+          <text class="rec-sub">{{item.categoryName}} · {{item.dateText}} {{item.timeText}}</text>
+        </view>
+        <text class="rec-amount {{item.amountClass}}">{{item.signedAmountText}}</text>
+      </view>
+    </view>
+
+    <view class="card empty" wx:else>
+      <text class="empty-sub">还没有任何记录</text>
+    </view>
+  </view>
+
+  <view class="fab" bindtap="goAdd" hover-class="fab-hover">＋</view>
+
+  <view class="pet-wrap" wx:if="{{!petPanelShow}}">
+    <view class="pet-img-wrap {{customSkin ? 'is-custom' : ''}}" bindtap="openPet" hover-class="pet-hover">
+      <image class="pet-img" src="{{petSrc}}" mode="{{customSkin ? 'aspectFill' : 'aspectFit'}}" />
+    </view>
+    <view class="pet-bubble" bindtap="openPet">{{petText}}</view>
+  </view>
+
+  <view class="pet-panel" wx:if="{{petPanelShow}}">
+    <view class="pet-mask" bindtap="closePet"></view>
+    <view class="pet-card">
+      <view class="pet-head">
+        <view class="pet-panel-img-wrap {{customSkin ? 'is-custom' : ''}}">
+          <image class="pet-panel-img" src="{{petSrc}}" mode="{{customSkin ? 'aspectFill' : 'aspectFit'}}" />
+        </view>
+        <view class="pet-head-bubble">{{petText}}</view>
+        <view class="pet-close" bindtap="closePet" hover-class="soft-hover">×</view>
+      </view>
+      <view class="pet-listening" wx:if="{{listeningText}}">{{listeningText}}</view>
+      <view class="pet-heard" wx:if="{{heardText}}">听到：{{heardText}}</view>
+      <view class="pet-result" wx:if="{{voiceResult}}">{{voiceResult}}</view>
+      <view class="pet-mode">
+        <view class="pet-mode-item {{micMode === 'hold' ? 'on' : ''}}" data-mode="hold" bindtap="setMicMode">按住说话</view>
+        <view class="pet-mode-item {{micMode === 'tap' ? 'on' : ''}}" data-mode="tap" bindtap="setMicMode">点击说话</view>
+      </view>
+      <view class="pet-mic {{listening ? 'on' : ''}}"
+            bindtouchstart="onMicTouchStart"
+            bindtouchend="onMicTouchEnd"
+            bindtouchcancel="onMicTouchEnd"
+            bindtap="onMicTap">
+        <text class="pet-mic-icon">🎙</text>
+        <text class="pet-mic-label">{{listening ? (micMode === 'tap' ? '点击结束' : '松开结束') : (micMode === 'tap' ? '点击说话' : '按住说话')}}</text>
+      </view>
+      <view class="pet-hint">试试说：「昨天午饭25」「记账，打车18」</view>
+      <view class="pet-undo" wx:if="{{canUndo}}" bindtap="undoVoice" hover-class="soft-hover">撤销上一笔</view>
+    </view>
+  </view>
+
+  <view class="summary-mask" wx:if="{{summaryShow}}">
+    <view class="summary-card">
+      <view class="summary-head">每日小票</view>
+      <view class="summary-sub">{{summaryDateText}} 收支小票</view>
+      <view class="summary-dash"></view>
+      <view class="summary-row"><text>共 {{summaryCount}} 笔</text><text></text></view>
+      <view class="summary-row"><text>支出</text><text class="out">-¥{{summaryExpenseText}}</text></view>
+      <view class="summary-row"><text>收入</text><text class="in">+¥{{summaryIncomeText}}</text></view>
+      <view class="summary-dash"></view>
+      <view class="summary-row total"><text>昨日结余</text><text>{{summaryBalanceText}}</text></view>
+      <view class="summary-budget" wx:if="{{summaryBudgetText}}">{{summaryBudgetText}}</view>
+      <view class="summary-btn" bindtap="closeSummary" hover-class="soft-hover">知道了</view>
+    </view>
+  </view>
+</view>

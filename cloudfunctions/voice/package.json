@@ -1,0 +1,10 @@
+{
+  "name": "voice",
+  "version": "1.0.0",
+  "description": "拾光账本本语音云函数：一句话识别（ASR）+ 语音合成（TTS）",
+  "main": "index.js",
+  "dependencies": {
+    "tencentcloud-sdk-nodejs": "^4.1.0",
+    "wx-server-sdk": "~2.6.3"
+  }
+}

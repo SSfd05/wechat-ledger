@@ -1,0 +1,249 @@
+.page {
+  padding: 28rpx 32rpx 60rpx;
+}
+
+.month-card {
+  position: relative;
+  overflow: hidden;
+  padding: 30rpx 34rpx 34rpx;
+  border-radius: 40rpx;
+  background: #2b2a26;
+  color: #f7f4ef;
+  box-shadow: 0 22rpx 50rpx rgba(43, 42, 38, 0.28);
+}
+
+.month-card::after {
+  content: '';
+  position: absolute;
+  right: -80rpx;
+  bottom: -120rpx;
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 50%;
+  background: rgba(232, 102, 61, 0.16);
+}
+
+.month-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24rpx;
+}
+
+.month-text {
+  font-size: 27rpx;
+  letter-spacing: 2rpx;
+  color: rgba(247, 244, 239, 0.86);
+}
+
+.month-arrow {
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 26rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34rpx;
+  color: rgba(247, 244, 239, 0.8);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.arrow-hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.month-total {
+  margin-top: 18rpx;
+  font-size: 72rpx;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 1rpx;
+}
+
+.cny {
+  font-size: 34rpx;
+  font-weight: 500;
+  margin-right: 8rpx;
+}
+
+.month-meta {
+  margin-top: 6rpx;
+  text-align: center;
+  font-size: 23rpx;
+  color: rgba(247, 244, 239, 0.6);
+}
+
+.month-add {
+  position: relative;
+  z-index: 2;
+  margin: 26rpx auto 0;
+  width: 220rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+  text-align: center;
+  border-radius: 34rpx;
+  background: #e8663d;
+  color: #ffffff;
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.add-hover {
+  opacity: 0.9;
+}
+
+.filters {
+  margin: 28rpx 0 4rpx;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.filter {
+  display: inline-block;
+  margin-right: 14rpx;
+  padding: 10rpx 26rpx;
+  border-radius: 999rpx;
+  background: #ffffff;
+  color: var(--muted);
+  font-size: 24rpx;
+  border: 2rpx solid transparent;
+}
+
+.filter.on {
+  background: var(--accent-soft);
+  border-color: rgba(232, 102, 61, 0.35);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.groups {
+  margin-top: 20rpx;
+}
+
+.group {
+  margin-top: 28rpx;
+}
+
+.group-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 8rpx 12rpx;
+}
+
+.group-label {
+  font-size: 25rpx;
+  color: var(--muted);
+}
+
+.group-total {
+  font-size: 24rpx;
+  color: var(--muted);
+}
+
+.group-card {
+  padding: 6rpx 26rpx;
+}
+
+.rec {
+  display: flex;
+  align-items: center;
+  padding: 22rpx 0;
+}
+
+.rec + .rec {
+  border-top: 1rpx solid var(--line);
+}
+
+.rec-hover {
+  background: #fbf8f3;
+  border-radius: 20rpx;
+}
+
+.rec-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 36rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34rpx;
+  flex: none;
+}
+
+.rec-main {
+  flex: 1;
+  min-width: 0;
+  margin: 0 20rpx;
+}
+
+.rec-note {
+  display: block;
+  font-size: 28rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.rec-sub {
+  display: block;
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: var(--muted);
+}
+
+.rec-amount {
+  font-size: 28rpx;
+  font-weight: 600;
+  flex: none;
+}
+
+.rec-amount.income {
+  color: #2f9e6e;
+}
+
+.hint {
+  margin-top: 30rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #b8b0a4;
+}
+
+.empty {
+  margin-top: 36rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 32rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 64rpx;
+}
+
+.empty-title {
+  margin-top: 16rpx;
+  font-size: 29rpx;
+  font-weight: 600;
+}
+
+.empty-sub {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.empty-btn {
+  display: inline-block;
+  width: auto;
+  margin-top: 28rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  padding: 0 44rpx;
+  border-radius: 36rpx;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 26rpx;
+}

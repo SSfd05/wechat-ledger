@@ -1,0 +1,71 @@
+page {
+  --bg: #f7f4ef;
+  --card: #ffffff;
+  --ink: #26221d;
+  --muted: #8c857b;
+  --line: #eee8df;
+  --accent: #e8663d;
+  --accent-soft: rgba(232, 102, 61, 0.1);
+  --teal: #2f6b62;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+view,
+text,
+button,
+input,
+textarea,
+picker {
+  box-sizing: border-box;
+}
+
+button {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  line-height: normal;
+}
+
+button::after {
+  border: none;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 32rpx;
+  padding: 28rpx;
+  box-shadow: 0 8rpx 30rpx rgba(38, 34, 29, 0.05);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.btn-primary {
+  width: 100%;
+  height: 96rpx;
+  line-height: 96rpx;
+  border-radius: 48rpx;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: 600;
+  text-align: center;
+  border: 0;
+}
+
+.btn-primary:active {
+  opacity: 0.88;
+}
+
+.btn-primary::after {
+  border: 0;
+}
+
+.btn-primary.disabled {
+  opacity: 0.4;
+}

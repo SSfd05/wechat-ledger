@@ -1,0 +1,38 @@
+<view class="page">
+  <view class="card">
+    <text class="title">粘贴账单文本</text>
+    <text class="desc">每行一笔。日期可以单独一行，作为后续记录的日期，例如「2026-10-18」；也支持「昨天 打车 18.5」。</text>
+    <textarea class="input" value="{{text}}" maxlength="5000"
+              placeholder="每行一笔；日期可单独一行，如 2026-10-18"
+              placeholder-class="ph" bindinput="onInput" />
+    <view class="actions">
+      <view class="ghost-btn" bindtap="scanBill" hover-class="soft-hover">📷 拍照识账单</view>
+      <view class="ghost-btn" bindtap="fillSample" hover-class="soft-hover">填入示例</view>
+      <view class="parse-btn" bindtap="parse" hover-class="soft-hover">解析预览</view>
+    </view>
+  </view>
+
+  <view class="card preview" wx:if="{{items.length}}">
+    <view class="preview-head">
+      <text class="title">识别到 {{count}} 笔</text>
+      <text class="preview-total">支出 ¥{{totalText}} · 收入 ¥{{incomeText}}</text>
+    </view>
+
+    <view class="item" wx:for="{{items}}" wx:key="key">
+      <view class="item-icon" style="background: {{item.soft}}">{{item.icon}}</view>
+      <view class="item-main">
+        <text class="item-note">{{item.note}}</text>
+        <text class="item-sub">{{item.categoryName}} · {{item.dateText}}</text>
+      </view>
+      <text class="item-amount {{item.amountClass}}">{{item.signedAmountText}}</text>
+      <view class="item-remove" data-key="{{item.key}}" bindtap="removeItem" hover-class="soft-hover">×</view>
+    </view>
+
+    <button class="btn-primary save-btn" bindtap="saveAll">全部记入</button>
+  </view>
+
+  <view class="tip-card">
+    <text class="tip-title">关于「自动收集」</text>
+    <text class="tip-text">小程序无法读取微信支付或银行卡流水，所以这里的自动收集 = 智能识别 + 自动归类 + 自动汇总。粘贴账单文本、复制支付短信，或直接输入「午饭 25」，都能被识别。</text>
+  </view>
+</view>
